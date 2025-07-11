@@ -8,14 +8,14 @@ This project automates Twitter actions: it scrapes tweets, retweets the most eng
 ```
 ├── .env                # Environment variables (credentials, keys, DB URL)
 ├── auth.py             # Twitter login
-├── analyzer.py         # (Optional, analysis functions if used)
+├── analyzer.py         # Analysis functions if used
 ├── config.py           # Loads config from .env
-├── db.py               # Database functions (optional)
+├── db.py               # Database functions 
 ├── main.py             # Main script to run everything
 ├── replier.py          # Retweet and reply logic
 ├── scraper.py          # Scrapes tweets
 ├── requirements.txt    # Python dependencies
-├── schema.sql          # SQL schema file (optional)
+├── schema.sql          # SQL schema file 
 ```
 
 ---
@@ -27,7 +27,7 @@ This project automates Twitter actions: it scrapes tweets, retweets the most eng
 pip install -r requirements.txt
 ```
 
-2. Create `.env` file (already included in your project):
+2. Create `.env` file :
 ```env
 TWITTER_USERNAME=your_twitter_username
 TWITTER_PASSWORD=your_twitter_password
@@ -35,7 +35,7 @@ DATABASE_URL=postgresql://user:password@localhost:5432/twitter_logs
 GEMINI_API_KEY=your_gemini_api_key
 ```
 
-3. (Optional) Apply SQL schema if using the database:
+3. Apply SQL schema if using the database:
 ```bash
 psql -d twitter_logs < schema.sql
 ```
