@@ -1,5 +1,5 @@
 import psycopg2
-from src.config.config import DATABASE_URL
+from src.core.config import DATABASE_URL
 
 def init_db():
     return psycopg2.connect(DATABASE_URL)

@@ -6,11 +6,10 @@ import logging
 import time
 import random
 import google.generativeai as genai
-from src.config.config import TWITTER_USERNAME, GEMINI_API_KEY
+from src.core.config import GEMINI_API_KEY
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import StaleElementReferenceException
 
 logging.basicConfig(level=logging.INFO, format="[REPLIER] %(message)s")
 

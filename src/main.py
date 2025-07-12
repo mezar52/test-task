@@ -1,10 +1,10 @@
 import logging
-from src.core.auth import create_driver, login
-from src.core.scraper import scrape_tweets
-from src.core.analyzer import select_top_tweet
-from src.core.replier import generate_reply, repost_and_reply
+from src.handlers.auth import create_driver, login
+from src.handlers.scraper import scrape_tweets
+from src.handlers.analyzer import select_top_tweet
+from src.handlers.replier import generate_reply, repost_and_reply
 from src.db.db import log_tweet
-from src.config.config import TWITTER_USERNAME
+from src.core.config import TWITTER_USERNAME
 
 def main():
     logging.basicConfig(
