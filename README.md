@@ -13,9 +13,16 @@ A Python-based tool that logs into Twitter, scrapes tweets, analyzes them, and a
 │   └── test-task2.png
 ├── src/                  # Source code
 │   ├── main.py           # Entry point
-│   ├── config/           # Loads environment config
-│   ├── core/             # Core logic: auth, scraping, replies
-│   ├── db/               # Database handling
+│   ├── core/             # Config and constants
+│   │   └── config.py
+│   ├── db/               # Database handler
+│   │   ├── db.py
+│   │   └── schema.sql
+│   └── handlers/         # All app logic
+│       ├── analyzer.py
+│       ├── auth.py
+│       ├── replier.py
+│       └── scraper.py
 ├── .env.example          # Example environment file
 ├── requirements.txt      # Python dependencies
 ├── .gitignore
@@ -35,14 +42,12 @@ cd your-repo
 ### 2. Set up a virtual environment (recommended)
 
 **Windows:**
-
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
 **macOS / Linux:**
-
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -73,13 +78,13 @@ These are loaded automatically via `dotenv`.
 
 ## 💽 Database
 
-The project uses a simple SQLite database.
+This project uses **PostgreSQL**. Make sure your database is created and accessible at the `DATABASE_URL` you provide in the `.env`.
 
-Schema (defined in `src/db/schema.sql`):
+Schema is located at `src/db/schema.sql`:
 
 ```sql
 CREATE TABLE IF NOT EXISTS tweets (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     username TEXT,
     original TEXT,
     reply TEXT,
@@ -88,8 +93,6 @@ CREATE TABLE IF NOT EXISTS tweets (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
-
-The database is created automatically on first run.
 
 ---
 
@@ -100,11 +103,12 @@ cd src
 python main.py
 ```
 
-It will:
+This will:
 - Log into Twitter
-- Scrape top tweets from the timeline
-- Select the one with the most engagement
-- Generate and post a reply
+- Scrape tweets from your timeline
+- Pick the top tweet based on engagement
+- Auto-generate a reply using Gemini API
+- Post the reply and log it in the database
 
 ---
 
@@ -117,7 +121,6 @@ It will:
 ![After](assets/test-task2.png)
 
 ---
-
 
 ## 🧪 Tested on
 
@@ -132,9 +135,10 @@ It will:
 - `selenium`
 - `webdriver-manager`
 - `python-dotenv`
-- `sqlite3`
+- `psycopg2` *(PostgreSQL adapter)*
+- `openai` or `google-generativeai` *(depending on which Gemini API library you use)*
 
-Install with:
+Install them with:
 
 ```bash
 pip install -r requirements.txt
